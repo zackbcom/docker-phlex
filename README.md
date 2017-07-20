@@ -2,12 +2,14 @@
 ## Usage
 
 ```
-docker create --privileged \
-  --name=Phlex \
+docker create --name=Phlex \
   --net=host \
   -v <path to data>:/config \
   -e PGID=<gid> -e PUID=<uid>  \
   -e TZ=<timezone> \
+  -e HTTPPORT=5666 \
+  -e HTTPSPORT=5667 \
+  -e FASTCGIPORT=9000 \
   digitalhigh/phlex
   
 ```
@@ -19,12 +21,15 @@ By default, Phlex is set to listen on ports 5666 and 5667 - these can be modifie
 `The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. 
 
 
-* `-v /config` - Where muximux should store its files
+* `-v /config` - Where Phlex should store its files
 * `-e PGID` for GroupID (optional) - see below for explanation
 * `-e PUID` for UserID (optional) - see below for explanation
 * `-e TZ` for timezone setting (optional), eg Europe/London
+* `-e HTTPPORT` to change the default HTTP Port (optional)
+* `-e HTTPSPORT` to change the default HTTPS Port (optional)
+* `-e FASTCGIPORT` to change the port FastCGI listens on (optional)
 
-It is based on alpine linux with s6 overlay, for shell access whilst the container is running do `docker exec -it muximux /bin/bash`.
+It is based on alpine linux with s6 overlay, for shell access whilst the container is running do `docker exec -it Phlex /bin/bash`.
 
 ### User / Group Identifiers
 

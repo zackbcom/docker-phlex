@@ -37,4 +37,4 @@ chown -R abc:abc \
     ln -sf /dev/stdout /config/www/Phlex/logs/Phlex.log
     ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
 	
-
+envsubst < /template/default > /defaults/default
