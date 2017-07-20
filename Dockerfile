@@ -11,6 +11,11 @@ COPY root/ /
 
 # ports and volumes
 VOLUME /config
+RUN ln -sf /dev/stdout /config/www/Phlex/logs/Phlex.log
+RUN ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
 
+ENV HTTPPORT=5666
+ENV HTTPSPORT=5667
+ENV FASTCGIPORT=9000
 
 
