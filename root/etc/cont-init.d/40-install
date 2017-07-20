@@ -1,9 +1,6 @@
 #!/usr/bin/with-contenv bash
 
 apk upgrade --update
-apk add iptables
-apk add gettext
-
 
 # check/set multicast
 [[ ! -e /config/updated ]] && \
@@ -19,15 +16,25 @@ apk add gettext
 	touch /config/updated
 
 # fetch site
-[[ ! -d /config/www/Phlex/.git ]] && \
-	git clone https://github.com/d8ahazard/Phlex /config/www/Phlex
+[[ ! -d /config/www/.git ]] && \
+	git clone https://github.com/d8ahazard/Phlex /config/www
 
-cd /config/www/Phlex
+cd /config/www
 git pull
 
 # permissions
 chown -R abc:abc \
 	/config/www
+
+# logs
+[[ ! -d /config/www/logs/ ]] && \
+    mkdir /config/www/logs/
+    touch /config/www/logs/Phlex.log
+    touch /config/www/logs/Phlex_error.log
+    chmod 777 /config/www/logs/Phlex.log
+    chmod 777 /config/www/logs/Phlex_error.log
+    ln -sf /dev/stdout /config/www/logs/Phlex.log
+    ln -sf /dev/stderr /config/www/logs/Phlex_error.log
 
 envsubst < /template/default > /defaults/default
 envsubst < /template/default > /config/nginx/site-confs/default
