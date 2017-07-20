@@ -26,15 +26,5 @@ git pull
 chown -R abc:abc \
 	/config/www
 
-# logs
-[[ ! -d /config/www/logs/ ]] && \
-    mkdir /config/www/logs/
-    touch /config/www/logs/Phlex.log
-    touch /config/www/logs/Phlex_error.log
-    chmod 777 /config/www/logs/Phlex.log
-    chmod 777 /config/www/logs/Phlex_error.log
-    ln -sf /dev/stdout /config/www/logs/Phlex.log
-    ln -sf /dev/stderr /config/www/logs/Phlex_error.log
-
 envsubst < /template/default > /defaults/default
 envsubst < /template/default > /config/nginx/site-confs/default
