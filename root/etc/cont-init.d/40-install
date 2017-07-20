@@ -40,4 +40,4 @@ chown -R abc:abc \
     ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
 	
 envsubst < /template/default > /defaults/default
-envsubst < /template/default > /config/nginx/site-configs/default
+envsubst < /template/default > /config/nginx/site-confs/default
