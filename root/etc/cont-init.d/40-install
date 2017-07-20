@@ -28,7 +28,13 @@ chown -R abc:abc \
 	/config/www
 
 # logs
-ln -sf /dev/stdout /config/www/Phlex/logs/Phlex.log
-ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
+[[ ! -d /config/www/Phlex/logs/ ]] && \
+    mkdir /config/www/Phlex/logs/
+    touch /config/www/Phlex/logs/Phlex.log
+    touch /config/www/Phlex/logs/Phlex_error.log
+    chmod 777 /config/www/Phlex/logs/Phlex.log
+    chmod 777 /config/www/Phlex/logs/Phlex_error.log
+    ln -sf /dev/stdout /config/www/Phlex/logs/Phlex.log
+    ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
 	
 
