@@ -2,7 +2,7 @@ server {
 	listen ${HTTPPORT} default_server;
 	listen ${HTTPSPORT} ssl;
 
-	root /config/www/Phlex;
+	root /config/www;
 	index index.html index.htm index.php;
 
 	server_name _;
