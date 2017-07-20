@@ -25,6 +25,10 @@ git pull
 
 # permissions
 chown -R abc:abc \
-	/config/www	
+	/config/www
+
+# logs
+ln -sf /dev/stdout /config/www/Phlex/logs/Phlex.log
+ln -sf /dev/stderr /config/www/Phlex/logs/Phlex_error.log
 	
 
