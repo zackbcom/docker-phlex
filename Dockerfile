@@ -1,4 +1,4 @@
-FROM nimmis:alpine-apache
+FROM nimmis/alpine-apache
 
 MAINTAINER Digitalhigh
 
