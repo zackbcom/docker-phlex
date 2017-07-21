@@ -3,8 +3,7 @@ FROM nginx:alpine
 MAINTAINER Digitalhigh
 
  apk add --no-cache \
- 
-	apache2-utils \
+ 	apache2-utils \
 	git \
 	iptables \
 	gettext \
