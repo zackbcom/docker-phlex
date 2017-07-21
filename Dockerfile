@@ -1,6 +1,5 @@
 FROM scratch
-ADD rootfs.tar.xz /
-
+ADD rootfs.tar.gz /
 MAINTAINER Digitalhigh
 
 # set arch for s6 overlay
