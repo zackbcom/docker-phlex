@@ -16,13 +16,13 @@ apk upgrade --update
 	touch /config/updated
 
 # fetch site
-[[ ! -d /config/www/.git ]] && \
-	git clone https://github.com/d8ahazard/Phlex /config/www
+[[ ! -d /var/www/html/.git ]] && \
+	git clone https://github.com/d8ahazard/Phlex /var/www/html
 
-cd /config/www
+cd /var/www/html
 git pull
 
 # permissions
 chown -R abc:abc \
-	/config/www
+    /var/www/html
 

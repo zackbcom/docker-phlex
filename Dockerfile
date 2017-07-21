@@ -1,18 +1,15 @@
-FROM nginx:alpine
+FROM nimmis:alpine-apache
 
 MAINTAINER Digitalhigh
 
 RUN apk add --no-cache \
- 	apache2-utils \
-	git \
+ 	git \
 	iptables \
 	gettext \
 	libressl2.5-libssl \
-	logrotate \
-	nano \
-	nginx \
 	openssl \
 	php7 \
+	php7-mcrypt \
 	php7-fileinfo \
 	php7-fpm \
 	php7-json \
