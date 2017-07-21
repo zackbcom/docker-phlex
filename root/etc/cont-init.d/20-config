@@ -7,6 +7,9 @@ mkdir -p \
 	/var/lib/nginx/tmp/client_body \
 	/var/tmp/nginx
 
+
+envsubst < /template/default > /defaults/default
+
 # copy config files
 [[ ! -f /config/nginx/nginx.conf ]] && \
 	cp /defaults/nginx.conf /config/nginx/nginx.conf
@@ -16,7 +19,7 @@ mkdir -p \
 # fix timezone in php.ini
 sed -i "s#;date.timezone =.*#date.timezone = $TZ#g" /etc/php7/php.ini
 #fix php-fpm log location
-sed -i "s#;error_log = log/php7/error.log.*#error_log = /config/log/php/error.log#g" /etc/php7/php-fpm.conf
+sed -i "s#;error_log = log/php7/error.log.*#error_log = //dev/stderr#g" /etc/php7/php-fpm.conf
 #fix php-fpm user
 sed -i "s#user = nobody.*#user = abc#g" /etc/php7/php-fpm.d/www.conf
 sed -i "s#group = nobody.*#group = abc#g" /etc/php7/php-fpm.d/www.conf

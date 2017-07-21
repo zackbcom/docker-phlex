@@ -26,5 +26,3 @@ git pull
 chown -R abc:abc \
 	/config/www
 
-envsubst < /template/default > /defaults/default
-envsubst < /template/default > /config/nginx/site-confs/default
