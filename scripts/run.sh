@@ -1,9 +1,7 @@
-#!/usr/bin/with-contenv bash
-
-apk upgrade --update
+#!/bin/sh
 
 # check/set multicast
-[[ ! -e /config/updated ]] && \
+[[ ! -e /updated ]] && \
 	ip link set eth0 multicast on
 	sysctl -w net.ipv4.conf.all.mc_forwarding=1
 	sysctl -w net.ipv4.conf.eth0.rp_filter=0
@@ -12,17 +10,17 @@ apk upgrade --update
 	iptables -I FORWARD -d 224.0.0.0/4 -j ACCEPT
 	iptables -I INPUT -d 224.0.0.251/4 -j ACCEPT
 	iptables -I FORWARD -d 224.0.0.251/4 -j ACCEPT
-	ip route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0 
-	touch /config/updated
+	ip route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0
+	touch /updated
 
 # fetch site
-[[ ! -d /var/www/html/.git ]] && \
-	git clone https://github.com/d8ahazard/Phlex /var/www/html
+[[ ! -d /var/www/.git ]] && \
+    echo "Pulling repo."
+	git clone https://github.com/d8ahazard/Phlex /var/www
 
-cd /var/www/html
+cd /var/www
 git pull
 
-# permissions
-chown -R abc:abc \
-    /var/www/html
+cp /etc/php7/php.ini /var/www/php.ini
 
+/usr/sbin/httpd -D FOREGROUND

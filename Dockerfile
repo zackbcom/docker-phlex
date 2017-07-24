@@ -1,41 +1,49 @@
-FROM nimmis/alpine-apache
-
+FROM alpine:3.6
 MAINTAINER Digitalhigh
 
-RUN apk add --no-cache \
- 	git \
-	iptables \
-	gettext \
-	libressl2.5-libssl \
-	openssl \
-	php7 \
-	php7-mcrypt \
-	php7-fileinfo \
-	php7-fpm \
-	php7-json \
-	php7-mbstring \
-	php7-openssl \
-	php7-session \
-	php7-simplexml \
-	php7-xml \
-	php7-xmlwriter \
-	php7-zlib && \
+# Install teh thingz
+RUN apk update \
+    && apk --no-cache add \
+        openssl \
+        apache2 \
+        apache2-ssl \
+        apache2-http2 \
+        git \
+        iptables \
+        php7 \
+        php7-apache2 \
+        php7-curl \
+        php7-json \
+        php7-mbstring \
+        php7-mcrypt \
+        php7-memcached \
+        php7-openssl \
+        php7-session \
+        php7-sockets \
+        php7-xml \
+        php7-simplexml \
 
-# add local files, set custom NGINX directory
-COPY root/ /
+    && rm /var/cache/apk/* \
 
-# set version label
-ARG BUILD_DATE
-ARG VERSION
-LABEL build_version="Digitalhigh version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+    # Run required config / setup for apache
+    # Ensure apache can create pid file
+    && mkdir /run/apache2 \
+    # Allow for custom apache configs
+    && mkdir /etc/apache2/conf.d/custom \
+    && mv /var/www/modules /etc/apache2/modules \
+    && mv /var/www/run /etc/apache2/run \
+    && mv /var/www/logs /etc/apache2/logs
 
-# ports and volumes
+WORKDIR /var/www
+ADD /config/httpd.conf /etc/apache2/httpd.conf
+ADD /config/ssl.conf /etc/apache2/conf.d/ssl.conf
+ADD /config/php.ini /etc/php7/php.ini
+ADD scripts/run.sh /scripts/run.sh
+RUN chmod -R 755 /scripts
 
-VOLUME /config
+# Export http and https
+EXPOSE 80 443
 
-ENV HTTPPORT=5066
-ENV HTTPSPORT=5067
-ENV FASTCGIPORT=9000
-ENV TZ=America/Chicago
-
-EXPOSE 5066 5067 9000
+ENTRYPOINT ["/scripts/run.sh"]
+# Run apache in foreground
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
