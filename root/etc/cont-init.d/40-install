@@ -6,9 +6,6 @@ if [ ! -e /config/updated ]; then
     if [ $? -eq 0 ]; then
         echo "Running in privileged mode, setting multicast variables."
 	ip link set eth0 multicast on
-	sysctl -w net.ipv4.conf.all.mc_forwarding=1
-	sysctl -w net.ipv4.conf.eth0.rp_filter=0
-	sysctl -p
 	iptables -I INPUT -d 224.0.0.0/4 -j ACCEPT
 	iptables -I FORWARD -d 224.0.0.0/4 -j ACCEPT
 	iptables -I INPUT -d 224.0.0.251/4 -j ACCEPT
