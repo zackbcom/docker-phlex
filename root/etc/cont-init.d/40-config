@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+
+# create folders
+mkdir -p \
+	/config/cache
+
+# make symlink
+[[ ! -d /config/www/phlex ]] && \
+	mv /apps/phlex /config/www/phlex
+
+#cp /defaults/default /config/nginx/site-confs/default
+
+# permissions
+chown -R abc:abc \
+	/config \
+	/apps/phlex
