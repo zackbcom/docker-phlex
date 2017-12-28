@@ -3,7 +3,7 @@
 
 ```
 docker create --name=phlex \
-  -p 80:80 -p 443:443 \
+  -p 5666:80 -p 5667:443 \
   -v /configpath:/config \
   -e PGID=<gid> -e PUID=<uid>  \
   --privileged \
