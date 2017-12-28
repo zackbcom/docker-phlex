@@ -16,7 +16,7 @@ By default, phlex is set to listen on ports 80(http) and 443(https). These can b
 
 `The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. 
 
-* `-v /configpath:/config` - Where phlex should store its files
+* `-v /config` - Where phlex should store its files
 * `-e PGID` for for GroupID - see below for explanation
 * `-e PUID` for for UserID - see below for explanation
 * `-e TZ` for timezone setting (optional), eg Europe/London
